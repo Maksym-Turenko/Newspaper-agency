@@ -82,9 +82,11 @@ class Newspaper(models.Model):
         by the same editor. Raises ValidationError if such an article exists.
         """
         super().clean()
+
         if Newspaper.objects.filter(
                 Q(title=self.title) &
-                Q(publishers__in=self.publishers.all())
+                Q(publishers__in=self.publishers.all()) &
+                ~Q(id=self.id)
         ).exists():
             raise ValidationError(
                 "You already have a newspaper with this title"
@@ -94,29 +96,21 @@ class Newspaper(models.Model):
         """
         Overrides the save method to handle keywords.
         """
+        keyword_names = [keyword.name for keyword in self.keywords.all()]
+
         with transaction.atomic():
+
             super().save(*args, **kwargs)
 
-            # Get all keyword names
-            keyword_names = [keyword.name for keyword in self.keywords.all()]
-
-            # Find existing keywords
             existing_keywords = Keyword.objects.filter(name__in=keyword_names)
-            existing_keyword_names = set(
-                existing_keywords.values_list('name', flat=True)
-            )
+            existing_keyword_names = set(existing_keywords.values_list('name', flat=True))
 
-            # Create new keywords
-            new_keywords = [
-                Keyword(
-                    name=name
-                ) for name in keyword_names
-                if name not in existing_keyword_names
-            ]
-            Keyword.objects.bulk_create(new_keywords)
+            new_keywords = [Keyword(name=name) for name in keyword_names if name not in existing_keyword_names]
+            if new_keywords:
+                Keyword.objects.bulk_create(new_keywords)
 
-            # Add all keywords to the newspaper
-            self.keywords.set(Keyword.objects.filter(name__in=keyword_names))
+            all_keywords = Keyword.objects.filter(name__in=keyword_names)
+            self.keywords.set(all_keywords)
 
     def __str__(self) -> str:
         return self.title
