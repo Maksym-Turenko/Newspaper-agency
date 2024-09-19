@@ -96,12 +96,11 @@ class Newspaper(models.Model):
         """
         Overrides the save method to handle keywords.
         """
+        super().save(*args, **kwargs)
+
         keyword_names = [keyword.name for keyword in self.keywords.all()]
 
         with transaction.atomic():
-
-            super().save(*args, **kwargs)
-
             existing_keywords = Keyword.objects.filter(name__in=keyword_names)
             existing_keyword_names = set(
                 existing_keywords.values_list("name", flat=True)
