@@ -103,9 +103,16 @@ class Newspaper(models.Model):
             super().save(*args, **kwargs)
 
             existing_keywords = Keyword.objects.filter(name__in=keyword_names)
-            existing_keyword_names = set(existing_keywords.values_list('name', flat=True))
+            existing_keyword_names = set(
+                existing_keywords.values_list("name", flat=True)
+            )
 
-            new_keywords = [Keyword(name=name) for name in keyword_names if name not in existing_keyword_names]
+            new_keywords = [
+                Keyword(
+                    name=name
+                ) for name in keyword_names
+                if name not in existing_keyword_names
+            ]
             if new_keywords:
                 Keyword.objects.bulk_create(new_keywords)
 
