@@ -7,7 +7,10 @@ from news.models import Redactor, Topic, Newspaper, Keyword
 class RedactorModelTest(TestCase):
 
     def test_create_redactor(self):
-        redactor = Redactor.objects.create_user(username="test_redactor", password="password")
+        redactor = Redactor.objects.create_user(
+            username="test_redactor",
+            password="password"
+        )
         self.assertEqual(redactor.username, "test_redactor")
 
 
@@ -27,7 +30,10 @@ class TopicModelTest(TestCase):
 class NewspaperModelTest(TestCase):
 
     def setUp(self):
-        self.redactor = Redactor.objects.create_user(username="redactor1", password="password")
+        self.redactor = Redactor.objects.create_user(
+            username="redactor1",
+            password="password"
+        )
         self.topic = Topic.objects.create(name="Science")
         self.keyword1 = Keyword.objects.create(name="Django")
         self.keyword2 = Keyword.objects.create(name="Python")
