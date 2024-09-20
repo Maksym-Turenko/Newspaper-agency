@@ -81,7 +81,6 @@ class NewspaperAdminTest(TestCase):
         )
         self.keyword = Keyword.objects.create(name="Innovation")
 
-        # Создание и сохранение Newspaper без ключевых слов и издателей
         self.newspaper = Newspaper.objects.create(
             title="Tech News",
             content="New tech releases this week.",
@@ -89,7 +88,6 @@ class NewspaperAdminTest(TestCase):
             published_date=now().date()
         )
 
-        # Теперь можно добавить издателей и ключевые слова
         self.newspaper.publishers.add(self.redactor)
         self.newspaper.keywords.add(self.keyword)
 
