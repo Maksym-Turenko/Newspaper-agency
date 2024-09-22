@@ -1,4 +1,4 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib import messages
 from django.views.generic import TemplateView
@@ -12,8 +12,16 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from news.forms import RedactorCreationForm, NewspaperForm
-from news.models import Redactor, Newspaper, Keyword
+from news.forms import (
+    RedactorCreationForm,
+    NewspaperForm,
+    RedactorUpdateForm,
+)
+from news.models import (
+    Redactor,
+    Newspaper,
+    Keyword,
+)
 
 
 class RegisterView(CreateView):
@@ -62,11 +70,11 @@ class NewspaperCreateView(LoginRequiredMixin, CreateView):
             publishers = form.cleaned_data.get("publishers")
             newspaper.publishers.set(publishers)
 
-            messages.success(self.request, "Статья успешно создана!")
+            messages.success(self.request, "Article successfully created!")
             return redirect(self.success_url)
 
         except Exception as e:
-            messages.error(self.request, f"Ошибка при создании статьи: {e}")
+            messages.error(self.request, f"Error creating article: {e}")
             return self.form_invalid(form)
 
 
@@ -87,7 +95,6 @@ class NewspaperUpdateView(LoginRequiredMixin, UpdateView):
         return kwargs
 
     def form_valid(self, form):
-        # Сохраняем новую статью
         newspaper = form.save(commit=False)
         new_newspaper = Newspaper.objects.create(
             title=newspaper.title,
@@ -96,7 +103,6 @@ class NewspaperUpdateView(LoginRequiredMixin, UpdateView):
             published_date=newspaper.published_date,
         )
 
-        # Обновляем ключевые слова и авторов
         keywords = form.cleaned_data.get("keywords", [])
         for keyword in keywords:
             keyword_obj, created = Keyword.objects.get_or_create(name=keyword)
@@ -105,18 +111,13 @@ class NewspaperUpdateView(LoginRequiredMixin, UpdateView):
         publishers = form.cleaned_data.get("publishers")
         new_newspaper.publishers.set(publishers)
 
-        # Удаляем старую статью
         self.object.delete()
 
         messages.success(self.request, "Статья успешно обновлена!")
         return redirect(self.success_url)
 
     def form_invalid(self, form):
-        # Если форма не валидна, просто рендерим ее снова
         return self.render_to_response({'form': form})
-
-
-
 
 
 class NewspaperDeleteView(LoginRequiredMixin, DeleteView):
@@ -135,6 +136,13 @@ class NewspaperListView(ListView):
     context_object_name = "newspapers"
     paginate_by = 10
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category = self.request.GET.get("category")
+        if category:
+            queryset = queryset.filter(topic__name__iexact=category)
+        return queryset
+
 
 class NewspaperDetailView(LoginRequiredMixin, DetailView):
     model = Newspaper
@@ -147,3 +155,43 @@ class NewspaperDetailView(LoginRequiredMixin, DetailView):
         else:
             context["is_author"] = False
         return context
+
+
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = "pages/profile.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
+        return context
+
+
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    model = Redactor
+    form_class = RedactorUpdateForm
+    template_name = "forms/update_forms/user_update_form.html"
+    success_url = reverse_lazy("profile")
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Redactor, id=self.request.user.id)
+
+    def form_valid(self, form):
+        messages.success(self.request, "Profile updated successfully!")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Error.")
+        return super().form_invalid(form)
+
+
+class UserDeleteView(LoginRequiredMixin, DeleteView):
+    model = Redactor
+    template_name = "forms/delete_forms/user_delete_form.html"
+    success_url = reverse_lazy("index")
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Redactor, id=self.request.user.id)
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "Your profile has been deleted!")
+        return super().delete(request, *args, **kwargs)

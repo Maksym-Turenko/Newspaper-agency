@@ -9,6 +9,9 @@ from news.views import (
     NewspaperUpdateView,
     NewspaperDeleteView,
     LogoutConfirmationView,
+    ProfileView,
+    UserUpdateView,
+    UserDeleteView,
 )
 
 urlpatterns = [
@@ -21,4 +24,7 @@ urlpatterns = [
     path("newspaper/create/", NewspaperCreateView.as_view(), name="newspaper-create"),
     path("newspaper/<int:pk>/update/", NewspaperUpdateView.as_view(), name="newspaper-update"),
     path("newspaper/<int:pk>/delete/", NewspaperDeleteView.as_view(), name="newspaper-delete"),
+    path('profile/', ProfileView.as_view(), name="profile"),
+    path('profile/edit/', UserUpdateView.as_view(), name="user-update"),
+    path('profile/delete/', UserDeleteView.as_view(), name="user-delete"),
 ]

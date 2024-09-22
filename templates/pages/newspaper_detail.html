@@ -9,7 +9,7 @@
     <p><strong>Publishers:</strong> 
         {% if object.publishers.all %}
             {% for publisher in object.publishers.all %}
-                {{ publisher.name }}{% if not forloop.last %}, {% endif %}
+                {{ publisher.username }}{% if not forloop.last %}, {% endif %}
             {% endfor %}
         {% else %}
             No publishers found.

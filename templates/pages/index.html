@@ -40,21 +40,26 @@
 
     <!-- Content Row-->
     <div class="row gx-4 gx-lg-5">
-        {% for newspaper in newspapers %}
-        <div class="col-md-4 mb-5">
-            <div class="card h-100">
-                <div class="card-body">
-                    <h2 class="card-title">{{ newspaper.title }}</h2>
-                    <p class="card-text">{{ newspaper.content|truncatewords:20 }}</p>
-                </div>
-                <div class="card-footer">
-                    <a class="btn btn-primary btn-sm" href="{% url 'newspaper-detail' newspaper.id %}">More Info</a>
-                </div>
-            </div>
+      {% for newspaper in newspapers %}
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <div class="card-body">
+              <h2 class="card-title">{{ newspaper.title }}</h2>
+              <p class="card-text">{{ newspaper.content|truncatewords:20 }}</p>
+              <p><strong>Authors:</strong>
+                {% for author in newspaper.publishers.all %}
+                    {{ author.username }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </p>
+          </div>
+          <div class="card-footer">
+              <a class="btn btn-primary btn-sm" href="{% url 'newspaper-detail' newspaper.id %}">More Info</a>
+          </div>
         </div>
-        {% empty %}
-        <p>No articles available at the moment.</p>
-        {% endfor %}
+      </div>
+      {% empty %}
+      <p>No articles available for this category.</p>
+      {% endfor %}
     </div>
 
     <!-- Pagination -->

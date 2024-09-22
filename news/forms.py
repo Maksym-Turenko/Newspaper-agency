@@ -32,7 +32,9 @@ class NewspaperForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         if self.instance and self.instance.pk:
-            self.initial['keywords'] = ', '.join(keyword.name for keyword in self.instance.keywords.all())
+            self.initial["keywords"] = ", ".join(
+                keyword.name for keyword in self.instance.keywords.all()
+            )
 
     def clean_title(self):
         title = self.cleaned_data.get("title")
@@ -40,7 +42,7 @@ class NewspaperForm(forms.ModelForm):
             return title
 
         if Newspaper.objects.filter(title=title).exists():
-            raise forms.ValidationError("Статья с таким названием уже существует.")
+            raise forms.ValidationError("An article with this title already exists.")
         return title
 
     def clean_keywords(self):
@@ -55,3 +57,19 @@ class NewspaperForm(forms.ModelForm):
             publishers.append(self.user)
         return publishers
 
+
+class RedactorUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Redactor
+        fields = ["first_name", "last_name", "email", "years_of_experience"]
+        widgets = {
+            "email": forms.EmailInput(attrs={"required": "required"}),
+        }
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")
+        if Redactor.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+            raise forms.ValidationError(
+                "This email address is already in use."
+            )
+        return email
