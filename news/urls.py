@@ -1,13 +1,24 @@
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
 
-from news.views import index, RegisterView, NewspaperCreateView
-
+from news.views import (
+    RegisterView,
+    NewspaperCreateView,
+    NewspaperListView,
+    NewspaperDetailView,
+    NewspaperUpdateView,
+    NewspaperDeleteView,
+    LogoutConfirmationView,
+)
 
 urlpatterns = [
-    path("", index, name="index"),
+    path("", NewspaperListView.as_view(), name="index"),
     path("account/register/", RegisterView.as_view(), name="register"),
-    path("logout/", LogoutView.as_view(next_page="index"), name="logout"),
     path("accounts/", include("django.contrib.auth.urls")),
-    path('newspaper/create/', NewspaperCreateView.as_view(), name="newspaper-create"),
+    path("logout-confirmation/", LogoutConfirmationView.as_view(), name="logout-confirmation"),
+    path("logout/", LogoutView.as_view(), name="logout"),
+    path("newspaper/<int:pk>/", NewspaperDetailView.as_view(), name="newspaper-detail"),
+    path("newspaper/create/", NewspaperCreateView.as_view(), name="newspaper-create"),
+    path("newspaper/<int:pk>/update/", NewspaperUpdateView.as_view(), name="newspaper-update"),
+    path("newspaper/<int:pk>/delete/", NewspaperDeleteView.as_view(), name="newspaper-delete"),
 ]

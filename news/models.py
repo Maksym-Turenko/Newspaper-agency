@@ -77,22 +77,12 @@ class Newspaper(models.Model):
         ordering = ["title", "published_date"]
 
     def clean(self) -> NoReturn:
-        """
-        Validates that there is no existing article with the same title
-        by the same editor. Raises ValidationError if such an article exists.
-        """
         super().clean()
 
-        if Newspaper.objects.filter(
-                Q(title=self.title) &
-                Q(publishers__in=self.publishers.all()) &
-                ~Q(id=self.id)
-        ).exists():
-            raise ValidationError(
-                "You already have a newspaper with this title"
-            )
+        if Newspaper.objects.filter(title=self.title).exists():
+            raise ValidationError("An article with this title already exists.")
 
-    def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs) -> NoReturn:
         """
         Overrides the save method to handle keywords.
         """
@@ -117,9 +107,6 @@ class Newspaper(models.Model):
 
             all_keywords = Keyword.objects.filter(name__in=keyword_names)
             self.keywords.set(all_keywords)
-
-    def __str__(self) -> str:
-        return self.title
 
 
 class Keyword(models.Model):

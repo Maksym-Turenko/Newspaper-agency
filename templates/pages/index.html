@@ -3,6 +3,18 @@
 {% block content %}
 <!-- Page Content-->
 <div class="container px-4 px-lg-5">
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="mt-3">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <!-- Heading Row-->
     <div class="row gx-4 gx-lg-5 align-items-center my-5">
         <div class="col-lg-7">
@@ -50,4 +62,6 @@
         {% include "nav/pagination.html" %}
     {% endif %}
 </div>
+
+<script src="{% static 'js/hide_messages.js' %}"></script>
 {% endblock %}

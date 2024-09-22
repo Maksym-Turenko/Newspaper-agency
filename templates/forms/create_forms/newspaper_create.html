@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Create New Article</h2>
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    <li><strong>{{ field }}:</strong> {{ errors|join:", " }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    
+    <form method="post" action="{% url 'newspaper-create' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>
+{% endblock %}
