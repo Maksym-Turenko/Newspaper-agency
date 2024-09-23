@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>My Articles</h1>
+<div class="row gx-4 gx-lg-5">
+  {% for newspaper in user_newspapers %}
+  <div class="col-md-4 mb-5">
+    <div class="card h-100">
+      <div class="card-body">
+        <h2 class="card-title">{{ newspaper.title }}</h2>
+        <p class="card-text">{{ newspaper.content|truncatewords:20 }}</p>
+        <a href="{% url 'newspaper-detail' newspaper.id %}" class="btn btn-primary">Read more</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>You have not written any articles yet.</p>
+  {% endfor %}
+</div>
+
+{% if is_paginated %}
+  {% include "nav/pagination.html" %}
+{% endif %}
+{% endblock %}

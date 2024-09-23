@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Page Content-->
+<div class="container px-4 px-lg-5">
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="mt-3">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Heading Row-->
+    <div class="row gx-4 gx-lg-5 align-items-center my-5">
+        <div class="col-lg-7">
+            <img class="img-fluid rounded mb-4 mb-lg-0" src="{% static 'assets/newspaper_ag.jfif' %}" alt="Newspaper Agency"/>
+        </div>
+        <div class="col-lg-5">
+            <h1 class="font-weight-light">VoicePress</h1>
+            <p> is a dynamic platform where everyone can become a writer. Share your articles, express your opinions, and connect with a community of like-minded individuals. Whether you’re reporting on local news or sharing personal stories, your voice matters here. Join us and contribute to a diverse and vibrant collection of perspectives. How does this sound? If you need any adjustments, feel free to let me know!</p>
+        </div>
+    </div>
+
+    <!-- Search Form -->
+    <form method="get" action="{% url 'index' %}" class="mb-4">
+        <div class="input-group">
+            {{ search_form.query }}
+            <button class="btn btn-outline-secondary" type="submit">🔍</button>
+        </div>
+    </form>
+
+    <!-- Call to Action -->
+    {% if not user.is_authenticated %}
+    <div class="card text-white bg-secondary my-5 py-4 text-center">
+        <div class="card-body">
+            <p class="mb-0">Don't have an account?</p>
+            <a class="btn btn-success my-2" href="{% url 'register' %}">Sign in</a>
+            <p class="text-white m-0">If you already have an account, log in to it, this will unlock key features for you!</p>
+            <a class="btn btn-primary mt-2" href="{% url 'login' %}">Login</a>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Content Row-->
+    <div class="row gx-4 gx-lg-5">
+      {% for newspaper in newspapers %}
+      <div class="col-md-4 mb-5">
+        <div class="card h-100">
+          <div class="card-body">
+              <h2 class="card-title">{{ newspaper.title }}</h2>
+              <p class="card-text">{{ newspaper.content|truncatewords:20 }}</p>
+              <p><strong>Authors:</strong>
+                {% for author in newspaper.publishers.all %}
+                    {{ author.username }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </p>
+          </div>
+          <div class="card-footer">
+              <a class="btn btn-primary btn-sm" href="{% url 'newspaper-detail' newspaper.id %}">More Info</a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p>No articles available for this category.</p>
+      {% endfor %}
+    </div>
+</div>
+
+<script src="{% static 'js/hide_messages.js' %}"></script>
+{% endblock %}

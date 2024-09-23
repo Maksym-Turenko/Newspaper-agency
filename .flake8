@@ -1,0 +1,13 @@
+[flake8]
+exclude =
+    .git,
+    __pycache__,
+    migrations,
+    .venv,
+    news/tests,
+    newspaper_agency/settings.py,
+    templates/,
+    db_dump.json,
+    manage.py,
+    static/,
+    news/migrations,

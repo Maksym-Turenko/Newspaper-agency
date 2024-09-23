@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <form method="post" action="{% url 'newspaper-delete' object.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>Are you sure that you want to DELETE your article?</p>
+    <button type="submit" class="btn btn-danger">DELETE</button>
+  </form>
+{% endblock %}
