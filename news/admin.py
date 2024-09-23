@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.contrib import admin, messages
 
 from news.models import Redactor, Topic, Newspaper, Keyword
 
@@ -22,13 +22,21 @@ class RedactorAdmin(admin.ModelAdmin):
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-    """
-    Admin view for Topic model.
-    """
-
-    list_display = ("name",)
-    search_fields = ("name",)
-    ordering = ("name",)
+    pass
+    # """
+    # Admin view for Topic model.
+    # """
+    #
+    # list_display = ("name",)
+    # search_fields = ("name",)
+    # ordering = ("name",)
+    #
+    # def save_model(self, request, obj, form, change):
+    #     obj, created = Topic.objects.get_or_create(name=obj.name)
+    #     if created:
+    #         super().save_model(request, obj, form, change)
+    #     else:
+    #         messages.info(request, f'Topic "{obj.name}" уже существует.')
 
 
 @admin.register(Newspaper)

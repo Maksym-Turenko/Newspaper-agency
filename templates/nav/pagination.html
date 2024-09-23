@@ -1,27 +1,15 @@
-<nav aria-label="Page navigation">
+{% if is_paginated%}
   <ul class="pagination">
-    {% if newspapers.has_previous %}
+    {% if page_obj.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="?page=1{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">First</a>
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Prev</a>
       </li>
+    {% endif %}
+    <li class="page-item active"><span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages}}</span></li>
+    {% if page_obj.has_next %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ newspapers.previous_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">Previous</a>
-      </li>
-  {% endif %}
-  
-  {% for num in newspapers.paginator.page_range %}
-      <li class="page-item {% if newspapers.number == num %}active{% endif %}">
-        <a class="page-link" href="?page={{ num }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">{{ num }}</a>
-      </li>
-  {% endfor %}
-  
-  {% if newspapers.has_next %}
-      <li class="page-item">
-        <a class="page-link" href="?page={{ newspapers.next_page_number }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">Next</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="?page={{ newspapers.paginator.num_pages }}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">Last</a>
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
       </li>
     {% endif %}
   </ul>
-</nav>
+{% endif %}

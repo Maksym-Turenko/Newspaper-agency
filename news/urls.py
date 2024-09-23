@@ -12,6 +12,7 @@ from news.views import (
     ProfileView,
     UserUpdateView,
     UserDeleteView,
+    UserArticlesListView,
 )
 
 urlpatterns = [
@@ -27,4 +28,6 @@ urlpatterns = [
     path('profile/', ProfileView.as_view(), name="profile"),
     path('profile/edit/', UserUpdateView.as_view(), name="user-update"),
     path('profile/delete/', UserDeleteView.as_view(), name="user-delete"),
+    path("my-articles/", UserArticlesListView.as_view(), name="my-articles"),
+
 ]

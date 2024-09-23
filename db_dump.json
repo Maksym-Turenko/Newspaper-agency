@@ -1,0 +1,890 @@
+[
+{
+  "model": "auth.permission",
+  "pk": 1,
+  "fields": {
+    "name": "Can add log entry",
+    "content_type": 1,
+    "codename": "add_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 2,
+  "fields": {
+    "name": "Can change log entry",
+    "content_type": 1,
+    "codename": "change_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 3,
+  "fields": {
+    "name": "Can delete log entry",
+    "content_type": 1,
+    "codename": "delete_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 4,
+  "fields": {
+    "name": "Can view log entry",
+    "content_type": 1,
+    "codename": "view_logentry"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 5,
+  "fields": {
+    "name": "Can add permission",
+    "content_type": 2,
+    "codename": "add_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 6,
+  "fields": {
+    "name": "Can change permission",
+    "content_type": 2,
+    "codename": "change_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 7,
+  "fields": {
+    "name": "Can delete permission",
+    "content_type": 2,
+    "codename": "delete_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 8,
+  "fields": {
+    "name": "Can view permission",
+    "content_type": 2,
+    "codename": "view_permission"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 9,
+  "fields": {
+    "name": "Can add group",
+    "content_type": 3,
+    "codename": "add_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 10,
+  "fields": {
+    "name": "Can change group",
+    "content_type": 3,
+    "codename": "change_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 11,
+  "fields": {
+    "name": "Can delete group",
+    "content_type": 3,
+    "codename": "delete_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 12,
+  "fields": {
+    "name": "Can view group",
+    "content_type": 3,
+    "codename": "view_group"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 13,
+  "fields": {
+    "name": "Can add content type",
+    "content_type": 4,
+    "codename": "add_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 14,
+  "fields": {
+    "name": "Can change content type",
+    "content_type": 4,
+    "codename": "change_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 15,
+  "fields": {
+    "name": "Can delete content type",
+    "content_type": 4,
+    "codename": "delete_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 16,
+  "fields": {
+    "name": "Can view content type",
+    "content_type": 4,
+    "codename": "view_contenttype"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 17,
+  "fields": {
+    "name": "Can add session",
+    "content_type": 5,
+    "codename": "add_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 18,
+  "fields": {
+    "name": "Can change session",
+    "content_type": 5,
+    "codename": "change_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 19,
+  "fields": {
+    "name": "Can delete session",
+    "content_type": 5,
+    "codename": "delete_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 20,
+  "fields": {
+    "name": "Can view session",
+    "content_type": 5,
+    "codename": "view_session"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 21,
+  "fields": {
+    "name": "Can add keyword",
+    "content_type": 6,
+    "codename": "add_keyword"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 22,
+  "fields": {
+    "name": "Can change keyword",
+    "content_type": 6,
+    "codename": "change_keyword"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 23,
+  "fields": {
+    "name": "Can delete keyword",
+    "content_type": 6,
+    "codename": "delete_keyword"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 24,
+  "fields": {
+    "name": "Can view keyword",
+    "content_type": 6,
+    "codename": "view_keyword"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 25,
+  "fields": {
+    "name": "Can add redactor",
+    "content_type": 7,
+    "codename": "add_redactor"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 26,
+  "fields": {
+    "name": "Can change redactor",
+    "content_type": 7,
+    "codename": "change_redactor"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 27,
+  "fields": {
+    "name": "Can delete redactor",
+    "content_type": 7,
+    "codename": "delete_redactor"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 28,
+  "fields": {
+    "name": "Can view redactor",
+    "content_type": 7,
+    "codename": "view_redactor"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 29,
+  "fields": {
+    "name": "Can add topic",
+    "content_type": 8,
+    "codename": "add_topic"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 30,
+  "fields": {
+    "name": "Can change topic",
+    "content_type": 8,
+    "codename": "change_topic"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 31,
+  "fields": {
+    "name": "Can delete topic",
+    "content_type": 8,
+    "codename": "delete_topic"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 32,
+  "fields": {
+    "name": "Can view topic",
+    "content_type": 8,
+    "codename": "view_topic"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 33,
+  "fields": {
+    "name": "Can add newspaper",
+    "content_type": 9,
+    "codename": "add_newspaper"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 34,
+  "fields": {
+    "name": "Can change newspaper",
+    "content_type": 9,
+    "codename": "change_newspaper"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 35,
+  "fields": {
+    "name": "Can delete newspaper",
+    "content_type": 9,
+    "codename": "delete_newspaper"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 36,
+  "fields": {
+    "name": "Can view newspaper",
+    "content_type": 9,
+    "codename": "view_newspaper"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 1,
+  "fields": {
+    "app_label": "admin",
+    "model": "logentry"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 2,
+  "fields": {
+    "app_label": "auth",
+    "model": "permission"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 3,
+  "fields": {
+    "app_label": "auth",
+    "model": "group"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 4,
+  "fields": {
+    "app_label": "contenttypes",
+    "model": "contenttype"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 5,
+  "fields": {
+    "app_label": "sessions",
+    "model": "session"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 6,
+  "fields": {
+    "app_label": "news",
+    "model": "keyword"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 7,
+  "fields": {
+    "app_label": "news",
+    "model": "redactor"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 8,
+  "fields": {
+    "app_label": "news",
+    "model": "topic"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 9,
+  "fields": {
+    "app_label": "news",
+    "model": "newspaper"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "kqihediay4c912y2ydk9cxjb90vkvje5",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSGAPF267zcQZgakaiAp7cr479qkC93ec859sZi2tcZt5CXOxC7MSHb6HSHhI7ed0D21W-fY27rMwHeFH3TwqVN-Xg_376CmUb-1tRoQvdCmhITCq4zBF3KCsjtLSSW4LDUpCMqCDyCLRSNskEZZ5zCx9wcO5zft:1ssnLV:4nZ2WzeABrj6VVetgJ8i9KaPuxIyhhNU-3luIrWtgyY",
+    "expire_date": "2024-10-07T17:59:37.646Z"
+  }
+},
+{
+  "model": "news.redactor",
+  "pk": 45,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$2snQggljqdVuYwXB9v7Ylz$BQSWJ6pHArICQggTYsdnm//v5GeOc/8hYlQeXKsxeVc=",
+    "last_login": "2024-09-23T17:50:06.320Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-09-23T17:49:50.657Z",
+    "years_of_experience": null,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "news.redactor",
+  "pk": 46,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$U7u1oMpF7klSULuBaiOGOW$Eu4TAJKo9SvNAttTsNvjsLwtpBdiQHJIxdAZaVWQZss=",
+    "last_login": "2024-09-23T17:51:52.062Z",
+    "is_superuser": false,
+    "username": "johnDeer",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-09-23T17:51:51.001Z",
+    "years_of_experience": 2,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "news.redactor",
+  "pk": 47,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$wGWSG4bJALcnQ5VcqXglbK$R/K5AlGYw/oKS2SoMCKyMkCTGVAyhsEfdMri7+mxjOs=",
+    "last_login": "2024-09-23T17:54:45.624Z",
+    "is_superuser": false,
+    "username": "TheDigitalNomad",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-09-23T17:54:44.555Z",
+    "years_of_experience": 5,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "news.redactor",
+  "pk": 48,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$syVfdZ3T4Blh6Fn36bIlOD$JOb8eAxVke5WWG4NBhWWennI+ksWvCJdclui8BJ52XA=",
+    "last_login": "2024-09-23T17:56:12.232Z",
+    "is_superuser": false,
+    "username": "WordWeaver",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-09-23T17:56:11.167Z",
+    "years_of_experience": 2,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "news.redactor",
+  "pk": 49,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$cLho0ZHBWnZ1QmmvUFOS3Q$tglzrsfPqvfATUD0lGtYcY1tvMdZRrkirjiTvDfmhaA=",
+    "last_login": "2024-09-23T17:57:21.269Z",
+    "is_superuser": false,
+    "username": "StorytellerExtraordinaire",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-09-23T17:57:20.199Z",
+    "years_of_experience": 6,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "news.redactor",
+  "pk": 50,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$Uk0yirrtn3Q6nLN7ocfNuK$hMAKpsO4TlBfpa+ySXvgswcFXHK1ADwHMNgxMi9W6ag=",
+    "last_login": "2024-09-23T17:58:29.909Z",
+    "is_superuser": false,
+    "username": "PenNamePro",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-09-23T17:58:28.838Z",
+    "years_of_experience": 3,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "news.redactor",
+  "pk": 51,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$RCu7lojnBLSywUjJs9N3tN$9yKjBlGAiSP29oTOEPaLoT1Tb0Y+nwqOtMU0TBKVBvo=",
+    "last_login": "2024-09-23T17:59:37.643Z",
+    "is_superuser": false,
+    "username": "InkSlinger",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-09-23T17:59:36.569Z",
+    "years_of_experience": 2,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "news.topic",
+  "pk": 1,
+  "fields": {
+    "name": "Politics"
+  }
+},
+{
+  "model": "news.topic",
+  "pk": 2,
+  "fields": {
+    "name": "Crime"
+  }
+},
+{
+  "model": "news.topic",
+  "pk": 3,
+  "fields": {
+    "name": "Business"
+  }
+},
+{
+  "model": "news.topic",
+  "pk": 4,
+  "fields": {
+    "name": "Art"
+  }
+},
+{
+  "model": "news.topic",
+  "pk": 5,
+  "fields": {
+    "name": "Trade"
+  }
+},
+{
+  "model": "news.topic",
+  "pk": 6,
+  "fields": {
+    "name": "Weather"
+  }
+},
+{
+  "model": "news.newspaper",
+  "pk": 16,
+  "fields": {
+    "title": "Combating Illegal Art Trade",
+    "content": "The illegal trade of art and artifacts poses a serious threat to international security. Organizations like the OSCE are actively working to prevent the smuggling of cultural assets by training border and customs officers to identify and stop such crimes. These efforts help combat the financing of organized crime and terrorism.",
+    "published_date": "2024-09-23",
+    "topic": 4,
+    "publishers": [
+      46
+    ],
+    "keywords": [
+      40,
+      44,
+      43,
+      42,
+      41
+    ]
+  }
+},
+{
+  "model": "news.newspaper",
+  "pk": 17,
+  "fields": {
+    "title": "Impact of Digital Transformation on Small Businesses",
+    "content": "Digital transformation opens new opportunities for small businesses, allowing them to improve operational processes and expand their customer base. Implementing modern technologies, such as cloud services and artificial intelligence, helps small enterprises remain competitive and adapt to the rapidly changing market.",
+    "published_date": "2024-09-23",
+    "topic": 3,
+    "publishers": [
+      47
+    ],
+    "keywords": [
+      45,
+      49,
+      48,
+      46,
+      47
+    ]
+  }
+},
+{
+  "model": "news.newspaper",
+  "pk": 18,
+  "fields": {
+    "title": "Fighting Cybercrime in the Modern World",
+    "content": "With the rise of digitalization, the number of cybercrimes is also increasing. Companies and government institutions are investing in cybersecurity to protect their data and prevent attacks. Education and raising awareness among users also play a key role in combating cyber threats.",
+    "published_date": "2024-09-23",
+    "topic": 2,
+    "publishers": [
+      48
+    ],
+    "keywords": [
+      50,
+      52,
+      51,
+      42,
+      47
+    ]
+  }
+},
+{
+  "model": "news.newspaper",
+  "pk": 19,
+  "fields": {
+    "title": "The Role of International Organizations in Conflict Resolution",
+    "content": "International organizations, such as the UN and OSCE, play a crucial role in resolving conflicts and maintaining peace. Mediation, diplomatic negotiations, and peacekeeping missions help reduce tensions and promote long-term cooperation between countries.",
+    "published_date": "2024-09-23",
+    "topic": 1,
+    "publishers": [
+      49
+    ],
+    "keywords": [
+      54,
+      57,
+      55,
+      53,
+      56
+    ]
+  }
+},
+{
+  "model": "news.newspaper",
+  "pk": 20,
+  "fields": {
+    "title": "Global Trade Prospects Amid the Pandemic",
+    "content": "The COVID-19 pandemic has significantly impacted global trade, causing disruptions in supply chains and altering trade flows. However, despite these challenges, many countries have adapted by implementing new strategies and technologies to sustain and develop international trade.",
+    "published_date": "2024-09-23",
+    "topic": 5,
+    "publishers": [
+      50
+    ],
+    "keywords": [
+      49,
+      60,
+      58,
+      61,
+      59
+    ]
+  }
+},
+{
+  "model": "news.newspaper",
+  "pk": 21,
+  "fields": {
+    "title": "Climate Change and Its Impact on Weather",
+    "content": "Climate change is leading to more frequent and intense weather events, such as hurricanes, floods, and droughts. These changes have a serious impact on ecosystems and human activities. Global efforts are needed to reduce greenhouse gas emissions and adapt to new climate conditions.",
+    "published_date": "2024-09-23",
+    "topic": 6,
+    "publishers": [
+      51
+    ],
+    "keywords": [
+      62,
+      65,
+      64,
+      66,
+      63
+    ]
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 40,
+  "fields": {
+    "name": "art"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 41,
+  "fields": {
+    "name": "smuggling"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 42,
+  "fields": {
+    "name": "security"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 43,
+  "fields": {
+    "name": "cultural_heritage"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 44,
+  "fields": {
+    "name": "crime"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 45,
+  "fields": {
+    "name": "digital_transformation"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 46,
+  "fields": {
+    "name": "small_business"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 47,
+  "fields": {
+    "name": "technology"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 48,
+  "fields": {
+    "name": "innovation"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 49,
+  "fields": {
+    "name": "economy"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 50,
+  "fields": {
+    "name": "cybercrime"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 51,
+  "fields": {
+    "name": "internet"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 52,
+  "fields": {
+    "name": "data_protection"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 53,
+  "fields": {
+    "name": "international_organizations"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 54,
+  "fields": {
+    "name": "conflicts"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 55,
+  "fields": {
+    "name": "diplomacy"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 56,
+  "fields": {
+    "name": "peace"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 57,
+  "fields": {
+    "name": "cooperation"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 58,
+  "fields": {
+    "name": "global_trade"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 59,
+  "fields": {
+    "name": "pandemic"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 60,
+  "fields": {
+    "name": "export"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 61,
+  "fields": {
+    "name": "import"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 62,
+  "fields": {
+    "name": "climate_change"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 63,
+  "fields": {
+    "name": "weather"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 64,
+  "fields": {
+    "name": "global_warming"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 65,
+  "fields": {
+    "name": "ecology"
+  }
+},
+{
+  "model": "news.keyword",
+  "pk": 66,
+  "fields": {
+    "name": "natural_disasters"
+  }
+}
+]

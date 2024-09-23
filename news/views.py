@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib import messages
@@ -16,6 +17,7 @@ from news.forms import (
     RedactorCreationForm,
     NewspaperForm,
     RedactorUpdateForm,
+    SearchForm,
 )
 from news.models import (
     Redactor,
@@ -57,26 +59,19 @@ class NewspaperCreateView(LoginRequiredMixin, CreateView):
         return kwargs
 
     def form_valid(self, form):
-        try:
-            newspaper = form.save(commit=False)
-            newspaper.save()
+        newspaper = form.save(commit=False)
+        newspaper.save()
 
-            keywords = form.cleaned_data.get("keywords", [])
-            if keywords:
-                for keyword in keywords:
-                    keyword_obj, created = Keyword.objects.get_or_create(name=keyword)
-                    newspaper.keywords.add(keyword_obj)
+        keywords = form.cleaned_data.get("keywords", [])
+        if keywords:
+            keyword_objs = [Keyword.objects.get_or_create(name=keyword)[0] for keyword in keywords]
+            newspaper.keywords.add(*keyword_objs)
 
-            publishers = form.cleaned_data.get("publishers")
-            newspaper.publishers.set(publishers)
+        publishers = form.cleaned_data.get("publishers")
+        newspaper.publishers.set(publishers)
 
-            messages.success(self.request, "Article successfully created!")
-            return redirect(self.success_url)
-
-        except Exception as e:
-            messages.error(self.request, f"Error creating article: {e}")
-            return self.form_invalid(form)
-
+        messages.success(self.request, "Article successfully created!")
+        return redirect(self.success_url)
 
 
 class NewspaperUpdateView(LoginRequiredMixin, UpdateView):
@@ -134,26 +129,44 @@ class NewspaperListView(ListView):
     model = Newspaper
     template_name = "pages/index.html"
     context_object_name = "newspapers"
-    paginate_by = 10
+    paginate_by = 9
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        queryset = queryset.select_related("topic")
+        queryset = queryset.prefetch_related("publishers", "keywords")
         category = self.request.GET.get("category")
+        query = self.request.GET.get("query")
+
         if category:
             queryset = queryset.filter(topic__name__iexact=category)
+
+        if query:
+            queryset = queryset.filter(
+                Q(title__icontains=query) |
+                Q(publishers__first_name__icontains=query) |
+                Q(publishers__last_name__icontains=query) |
+                Q(keywords__name__icontains=query)
+            ).distinct()
+
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_form"] = SearchForm(self.request.GET)
+        return context
 
 
 class NewspaperDetailView(LoginRequiredMixin, DetailView):
     model = Newspaper
     template_name = "pages/newspaper_detail.html"
 
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related("publishers")
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            context["is_author"] = self.object.publishers.filter(id=self.request.user.id).exists()
-        else:
-            context["is_author"] = False
+        context["is_author"] = self.object.publishers.filter(id=self.request.user.id).exists()
         return context
 
 
@@ -195,3 +208,13 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Your profile has been deleted!")
         return super().delete(request, *args, **kwargs)
+
+
+class UserArticlesListView(LoginRequiredMixin, ListView):
+    model = Newspaper
+    template_name = "pages/users_articles.html"
+    context_object_name = "user_newspapers"
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Newspaper.objects.filter(publishers=self.request.user).distinct()

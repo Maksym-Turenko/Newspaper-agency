@@ -1,10 +1,9 @@
 from typing import NoReturn
-
-from django.db import models
+from django.db import models, transaction
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
-from django.db.models import Q
-from django.db import transaction
+from django.db.models.signals import pre_delete
+from django.dispatch import receiver
 
 
 class Redactor(AbstractUser):
@@ -38,6 +37,17 @@ class Redactor(AbstractUser):
         return self.username
 
 
+@receiver(pre_delete, sender=Redactor)
+def delete_related_newspapers(sender, instance, **kwargs):
+    """
+    Signal to delete all newspapers associated
+    with the redactor before the redactor is deleted.
+    """
+    for newspaper in instance.redactor_newspapers.all():
+        if newspaper.publishers.count() == 1:
+            newspaper.delete()
+
+
 class Topic(models.Model):
     """
     Model representing a topic of an article.
@@ -65,12 +75,12 @@ class Newspaper(models.Model):
     )
     publishers = models.ManyToManyField(
         Redactor,
-        related_name="redactor_newspapers"
+        related_name="redactor_newspapers",
     )
     keywords = models.ManyToManyField(
         "Keyword",
         blank=True,
-        related_name="keyword_newspapers"
+        related_name="keyword_newspapers",
     )
 
     class Meta:

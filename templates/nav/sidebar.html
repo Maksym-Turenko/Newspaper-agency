@@ -1,9 +1,9 @@
 <div class="list-group">
     <a href="{% url 'index' %}" class="list-group-item list-group-item-action {% if not request.GET.category %}active{% endif %}">All</a>
-    <a href="{% url 'index' %}?category=Politics" class="list-group-item list-group-item-action {% if request.GET.category == 'Politics' %}active{% endif %}">Politics</a>
-    <a href="{% url 'index' %}?category=Crime" class="list-group-item list-group-item-action {% if request.GET.category == 'Crime' %}active{% endif %}">Crime</a>
-    <a href="{% url 'index' %}?category=Business" class="list-group-item list-group-item-action {% if request.GET.category == 'Business' %}active{% endif %}">Business</a>
     <a href="{% url 'index' %}?category=Art" class="list-group-item list-group-item-action {% if request.GET.category == 'Art' %}active{% endif %}">Art</a>
+    <a href="{% url 'index' %}?category=Business" class="list-group-item list-group-item-action {% if request.GET.category == 'Business' %}active{% endif %}">Business</a>
+    <a href="{% url 'index' %}?category=Crime" class="list-group-item list-group-item-action {% if request.GET.category == 'Crime' %}active{% endif %}">Crime</a>
+    <a href="{% url 'index' %}?category=Politics" class="list-group-item list-group-item-action {% if request.GET.category == 'Politics' %}active{% endif %}">Politics</a>
     <a href="{% url 'index' %}?category=Trade" class="list-group-item list-group-item-action {% if request.GET.category == 'Trade' %}active{% endif %}">Trade</a>
     <a href="{% url 'index' %}?category=Weather" class="list-group-item list-group-item-action {% if request.GET.category == 'Weather' %}active{% endif %}">Weather</a>
 </div>

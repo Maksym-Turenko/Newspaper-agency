@@ -39,11 +39,14 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    "debug_toolbar",
+
     "news",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -140,3 +143,7 @@ LOGIN_REDIRECT_URL = "/"
 
 # URL to redirect to after a successful logout
 LOGOUT_REDIRECT_URL = "/"
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+]

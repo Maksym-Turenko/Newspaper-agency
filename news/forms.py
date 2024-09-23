@@ -73,3 +73,20 @@ class RedactorUpdateForm(forms.ModelForm):
                 "This email address is already in use."
             )
         return email
+
+
+class SearchForm(forms.ModelForm):
+    query = forms.CharField(
+        label="Search",
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Search by title, author, or keywords...",
+                "style": "width: 700px;"
+            }
+        ),
+        required=False
+    )
+
+    class Meta:
+        model = Newspaper
+        fields = ["query"]
