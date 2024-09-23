@@ -22,21 +22,20 @@ class RedactorAdmin(admin.ModelAdmin):
 
 @admin.register(Topic)
 class TopicAdmin(admin.ModelAdmin):
-    pass
-    # """
-    # Admin view for Topic model.
-    # """
-    #
-    # list_display = ("name",)
-    # search_fields = ("name",)
-    # ordering = ("name",)
-    #
-    # def save_model(self, request, obj, form, change):
-    #     obj, created = Topic.objects.get_or_create(name=obj.name)
-    #     if created:
-    #         super().save_model(request, obj, form, change)
-    #     else:
-    #         messages.info(request, f'Topic "{obj.name}" уже существует.')
+    """
+    Admin view for Topic model.
+    """
+
+    list_display = ("name",)
+    search_fields = ("name",)
+    ordering = ("name",)
+
+    def save_model(self, request, obj, form, change):
+        obj, created = Topic.objects.get_or_create(name=obj.name)
+        if created:
+            super().save_model(request, obj, form, change)
+        else:
+            messages.info(request, f'Topic "{obj.name}" already exists.')
 
 
 @admin.register(Newspaper)

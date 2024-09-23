@@ -21,25 +21,25 @@ class RedactorAdminTest(TestCase):
             first_name="Test",
             last_name="Redactor",
             years_of_experience=5,
-            password="testpassword123"
+            password="testpassword123",
         )
 
     def test_list_display(self) -> NoReturn:
         self.assertEqual(
             list(self.redactor_admin.get_list_display(MockRequest())),
-            ["username", "first_name", "last_name", "years_of_experience"]
+            ["username", "first_name", "last_name", "years_of_experience"],
         )
 
     def test_search_fields(self) -> NoReturn:
         self.assertEqual(
             self.redactor_admin.get_search_fields(MockRequest()),
-            ("username", "first_name", "last_name")
+            ("username", "first_name", "last_name"),
         )
 
     def test_list_filter(self) -> NoReturn:
         self.assertEqual(
             self.redactor_admin.get_list_filter(MockRequest()),
-            ("years_of_experience", "is_staff", "is_superuser")
+            ("years_of_experience", "is_staff", "is_superuser"),
         )
 
 
@@ -51,21 +51,14 @@ class TopicAdminTest(TestCase):
 
     def test_list_display(self) -> NoReturn:
         self.assertEqual(
-            list(self.topic_admin.get_list_display(MockRequest())),
-            ["name"]
+            list(self.topic_admin.get_list_display(MockRequest())), ["name"]
         )
 
     def test_search_fields(self) -> NoReturn:
-        self.assertEqual(
-            self.topic_admin.get_search_fields(MockRequest()),
-            ("name",)
-        )
+        self.assertEqual(self.topic_admin.get_search_fields(MockRequest()), ("name",))
 
     def test_ordering(self) -> NoReturn:
-        self.assertEqual(
-            self.topic_admin.get_ordering(MockRequest()),
-            ("name",)
-        )
+        self.assertEqual(self.topic_admin.get_ordering(MockRequest()), ("name",))
 
 
 class NewspaperAdminTest(TestCase):
@@ -77,7 +70,7 @@ class NewspaperAdminTest(TestCase):
             username="editor1",
             first_name="John",
             last_name="Doe",
-            password="editorpassword"
+            password="editorpassword",
         )
         self.keyword = Keyword.objects.create(name="Innovation")
 
@@ -85,7 +78,7 @@ class NewspaperAdminTest(TestCase):
             title="Tech News",
             content="New tech releases this week.",
             topic=self.topic,
-            published_date=now().date()
+            published_date=now().date(),
         )
 
         self.newspaper.publishers.add(self.redactor)
@@ -94,25 +87,24 @@ class NewspaperAdminTest(TestCase):
     def test_list_display(self) -> NoReturn:
         self.assertEqual(
             list(self.newspaper_admin.get_list_display(MockRequest())),
-            ["title", "published_date", "topic"]
+            ["title", "published_date", "topic"],
         )
 
     def test_search_fields(self) -> NoReturn:
         self.assertEqual(
             self.newspaper_admin.get_search_fields(MockRequest()),
-            ("title", "content", "topic__name")
+            ("title", "content", "topic__name"),
         )
 
     def test_list_filter(self) -> NoReturn:
         self.assertEqual(
             self.newspaper_admin.get_list_filter(MockRequest()),
-            ("published_date", "topic")
+            ("published_date", "topic"),
         )
 
     def test_filter_horizontal(self) -> NoReturn:
         self.assertEqual(
-            self.newspaper_admin.filter_horizontal,
-            ("publishers", "keywords")
+            self.newspaper_admin.filter_horizontal, ("publishers", "keywords")
         )
 
 
@@ -124,18 +116,11 @@ class KeywordAdminTest(TestCase):
 
     def test_list_display(self) -> NoReturn:
         self.assertEqual(
-            list(self.keyword_admin.get_list_display(MockRequest())),
-            ["name"]
+            list(self.keyword_admin.get_list_display(MockRequest())), ["name"]
         )
 
     def test_search_fields(self) -> NoReturn:
-        self.assertEqual(
-            self.keyword_admin.get_search_fields(MockRequest()),
-            ("name",)
-        )
+        self.assertEqual(self.keyword_admin.get_search_fields(MockRequest()), ("name",))
 
     def test_ordering(self) -> NoReturn:
-        self.assertEqual(
-            self.keyword_admin.get_ordering(MockRequest()),
-            ("name",)
-        )
+        self.assertEqual(self.keyword_admin.get_ordering(MockRequest()), ("name",))

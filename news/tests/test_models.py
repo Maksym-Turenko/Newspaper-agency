@@ -1,81 +1,73 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
-
-from news.models import Redactor, Topic, Newspaper, Keyword
-
-
-class RedactorModelTest(TestCase):
-
-    def test_create_redactor(self):
-        redactor = Redactor.objects.create_user(
-            username="test_redactor",
-            password="password"
-        )
-        self.assertEqual(redactor.username, "test_redactor")
+from news.models import Redactor, Newspaper, Topic, Keyword
 
 
-class TopicModelTest(TestCase):
-
-    def test_create_topic(self):
-        topic = Topic.objects.create(name="test_topic")
-        self.assertEqual(topic.name, "test_topic")
-
-    def test_topic_unique_name(self):
-        Topic.objects.create(name="Science")
-        with self.assertRaises(ValidationError):
-            topic = Topic(name="Science")
-            topic.full_clean()
-
-
-class NewspaperModelTest(TestCase):
+class RedactorModelTests(TestCase):
 
     def setUp(self):
         self.redactor = Redactor.objects.create_user(
-            username="redactor1",
-            password="password"
+            username="editor1", password="password123"
         )
-        self.topic = Topic.objects.create(name="Science")
-        self.keyword1 = Keyword.objects.create(name="Django")
-        self.keyword2 = Keyword.objects.create(name="Python")
-
-    def test_create_newspaper(self):
-        newspaper = Newspaper.objects.create(
-            title="New Discoveries",
-            content="Some fascinating content",
-            topic=self.topic
+        self.topic = Topic.objects.create(name="Tech")
+        self.newspaper = Newspaper.objects.create(
+            title="Tech News", content="Content about tech", topic=self.topic
         )
-        newspaper.publishers.add(self.redactor)
-        self.assertEqual(newspaper.title, "New Discoveries")
+        self.newspaper.publishers.add(self.redactor)
 
-    def test_newspaper_unique_title_per_redactor(self):
-        newspaper1 = Newspaper.objects.create(
-            title="AI Breakthrough",
-            content="Content about AI",
-            topic=self.topic
+    def test_delete_redactor_deletes_related_newspapers(self):
+        """
+        Ensure that when a redactor is deleted, all related newspapers are also deleted.
+        """
+        self.redactor.delete()
+
+        # Ensure that the newspaper is deleted as well since the redactor was the only publisher
+        self.assertFalse(Newspaper.objects.filter(title="Tech News").exists())
+
+    def test_redactor_str(self):
+        """
+        Test the string representation of the Redactor model.
+        """
+        self.assertEqual(str(self.redactor), "editor1")
+
+
+class NewspaperModelTests(TestCase):
+
+    def setUp(self):
+        self.topic = Topic.objects.create(name="Politics")
+        self.redactor = Redactor.objects.create_user(
+            username="editor2", password="password123"
         )
-        newspaper1.publishers.add(self.redactor)
 
-        newspaper2 = Newspaper(
-            title="AI Breakthrough",
-            content="Another article on AI",
-            topic=self.topic
+    def test_newspaper_unique_title_validation(self):
+        """
+        Ensure that a ValidationError is raised if a newspaper with the same title already exists.
+        """
+        Newspaper.objects.create(
+            title="Breaking News", content="Some content", topic=self.topic
         )
-        newspaper2.save()
 
-        newspaper2.publishers.add(self.redactor)
-
+        # Try to create another newspaper with the same title, expecting ValidationError
+        newspaper = Newspaper(
+            title="Breaking News", content="Another content", topic=self.topic
+        )
         with self.assertRaises(ValidationError):
-            newspaper2.clean()
+            newspaper.clean()
 
-    def test_keyword_handling_in_newspaper(self):
+    def test_keyword_creation(self):
+        """
+        Ensure that keywords are correctly created and linked to a newspaper.
+        """
         newspaper = Newspaper.objects.create(
-            title="Tech Innovations",
-            content="Content about tech",
-            topic=self.topic
+            title="Sports News", content="Some sports content", topic=self.topic
         )
         newspaper.publishers.add(self.redactor)
-        newspaper.keywords.add(self.keyword1, self.keyword2)
+        keyword1 = Keyword.objects.create(name="Football")
+        keyword2 = Keyword.objects.create(name="Championship")
+        newspaper.keywords.add(keyword1, keyword2)
 
-        self.assertEqual(newspaper.keywords.count(), 2)
-        self.assertIn(self.keyword1, newspaper.keywords.all())
-        self.assertIn(self.keyword2, newspaper.keywords.all())
+        # Ensure that the keywords are correctly linked to the newspaper
+        self.assertSetEqual(
+            set(newspaper.keywords.values_list("name", flat=True)),
+            {"Football", "Championship"},
+        )

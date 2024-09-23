@@ -11,23 +11,21 @@ class Redactor(AbstractUser):
     Model representing an editor, inheriting from AbstractUser.
     Added field years_of_experience to store the editor's experience.
     """
-    years_of_experience = models.PositiveIntegerField(
-        null=True,
-        blank=True
-    )
+
+    years_of_experience = models.PositiveIntegerField(null=True, blank=True)
     groups = models.ManyToManyField(
         "auth.Group",
         related_name="redactor_set",
         blank=True,
         help_text="The groups this user belongs to.",
-        verbose_name="groups"
+        verbose_name="groups",
     )
     user_permissions = models.ManyToManyField(
         "auth.Permission",
         related_name="redactor_user_set",
         blank=True,
         help_text="Specific permissions for this user.",
-        verbose_name="user permissions"
+        verbose_name="user permissions",
     )
 
     class Meta:
@@ -52,6 +50,7 @@ class Topic(models.Model):
     """
     Model representing a topic of an article.
     """
+
     name = models.CharField(max_length=120, unique=True)
 
     class Meta:
@@ -65,13 +64,12 @@ class Newspaper(models.Model):
     """
     Model representing an article.
     """
+
     title = models.CharField(max_length=120)
     content = models.TextField()
     published_date = models.DateField(auto_now_add=True)
     topic = models.ForeignKey(
-        Topic,
-        on_delete=models.CASCADE,
-        related_name="topic_newspapers"
+        Topic, on_delete=models.CASCADE, related_name="topic_newspapers"
     )
     publishers = models.ManyToManyField(
         Redactor,
@@ -107,9 +105,8 @@ class Newspaper(models.Model):
             )
 
             new_keywords = [
-                Keyword(
-                    name=name
-                ) for name in keyword_names
+                Keyword(name=name)
+                for name in keyword_names
                 if name not in existing_keyword_names
             ]
             if new_keywords:
@@ -124,6 +121,7 @@ class Keyword(models.Model):
     Model representing a keyword.
     Each keyword is unique.
     """
+
     name = models.CharField(max_length=120, unique=True)
 
     class Meta:

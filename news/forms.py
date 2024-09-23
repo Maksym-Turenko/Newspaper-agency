@@ -42,7 +42,9 @@ class NewspaperForm(forms.ModelForm):
             return title
 
         if Newspaper.objects.filter(title=title).exists():
-            raise forms.ValidationError("An article with this title already exists.")
+            raise forms.ValidationError(
+                "An article with this title already exists."
+            )
         return title
 
     def clean_keywords(self):
@@ -68,7 +70,9 @@ class RedactorUpdateForm(forms.ModelForm):
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
-        if Redactor.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+        if Redactor.objects.exclude(
+                pk=self.instance.pk
+        ).filter(email=email).exists():
             raise forms.ValidationError(
                 "This email address is already in use."
             )
@@ -81,10 +85,10 @@ class SearchForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 "placeholder": "Search by title, author, or keywords...",
-                "style": "width: 700px;"
+                "style": "width: 700px;",
             }
         ),
-        required=False
+        required=False,
     )
 
     class Meta:

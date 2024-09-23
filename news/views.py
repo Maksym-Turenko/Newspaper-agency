@@ -44,7 +44,7 @@ class LogoutConfirmationView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         logout(request)
-        return redirect('index')
+        return redirect("index")
 
 
 class NewspaperCreateView(LoginRequiredMixin, CreateView):
@@ -64,7 +64,11 @@ class NewspaperCreateView(LoginRequiredMixin, CreateView):
 
         keywords = form.cleaned_data.get("keywords", [])
         if keywords:
-            keyword_objs = [Keyword.objects.get_or_create(name=keyword)[0] for keyword in keywords]
+            keyword_objs = [
+                Keyword.objects.get_or_create(
+                    name=keyword
+                )[0] for keyword in keywords
+            ]
             newspaper.keywords.add(*keyword_objs)
 
         publishers = form.cleaned_data.get("publishers")
@@ -112,7 +116,7 @@ class NewspaperUpdateView(LoginRequiredMixin, UpdateView):
         return redirect(self.success_url)
 
     def form_invalid(self, form):
-        return self.render_to_response({'form': form})
+        return self.render_to_response({"form": form})
 
 
 class NewspaperDeleteView(LoginRequiredMixin, DeleteView):
@@ -143,10 +147,10 @@ class NewspaperListView(ListView):
 
         if query:
             queryset = queryset.filter(
-                Q(title__icontains=query) |
-                Q(publishers__first_name__icontains=query) |
-                Q(publishers__last_name__icontains=query) |
-                Q(keywords__name__icontains=query)
+                Q(title__icontains=query)
+                | Q(publishers__first_name__icontains=query)
+                | Q(publishers__last_name__icontains=query)
+                | Q(keywords__name__icontains=query)
             ).distinct()
 
         return queryset
@@ -166,7 +170,9 @@ class NewspaperDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["is_author"] = self.object.publishers.filter(id=self.request.user.id).exists()
+        context["is_author"] = self.object.publishers.filter(
+            id=self.request.user.id
+        ).exists()
         return context
 
 
@@ -217,4 +223,6 @@ class UserArticlesListView(LoginRequiredMixin, ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return Newspaper.objects.filter(publishers=self.request.user).distinct()
+        return Newspaper.objects.filter(
+            publishers=self.request.user
+        ).distinct()
