@@ -6,7 +6,7 @@ This is a custom News service that allows creating articles, managing user accou
 
 You can see the deployed project by the link below:
 
-[Deployed News Service](https://your-deployed-news-link.com)
+[Deployed News Service](https://newspaper-agency-g8xo.onrender.com)
 
 Use the following credentials to log in:
 
